@@ -84,6 +84,7 @@ function App() {
                       <CreateCampaign />
                     </ProtectedRoute>
                   } />
+
                   <Route path="/campaign/:campaignId" element={
                     <ProtectedRoute>
                       <CampaignDetails />

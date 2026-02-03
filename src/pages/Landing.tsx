@@ -121,30 +121,37 @@ const Landing = () => {
                 animate={isLoaded ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: 0.8 }}
               >
-                {isAuthenticated ? (
-                  <Link
-                    to="/dashboard"
-                    className="inline-flex items-center px-8 py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    Ir al Dashboard
-                    <ArrowRightIcon className="ml-2" size={20} />
-                  </Link>
-                ) : (
-                  <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                  {isAuthenticated ? (
+                    <Link
+                      to="/dashboard"
+                      className="inline-flex items-center px-8 py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                    >
+                      Ir al Dashboard
+                      <ArrowRightIcon className="ml-2" size={20} />
+                    </Link>
+                  ) : (
                     <Link
                       to="/register"
                       className="inline-flex items-center px-8 py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                     >
                       Comenzar gratis
                     </Link>
-                    <Link
-                      to="/login"
-                      className="inline-flex items-center px-8 py-3.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
-                    >
-                      Iniciar sesión
-                    </Link>
-                  </div>
-                )}
+                  )}
+                  
+                  {/* Botón de Demostración - SIEMPRE VISIBLE */}
+                  <a
+                    href="http://localhost:3000/demo"
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center px-8 py-3.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
+                  >
+                    Ver demostración IA
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </a>
+                </div>
               </motion.div>
             </div>
 
@@ -431,12 +438,12 @@ const Landing = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link
-                    to="/demo"
+                  <a
+                    href="http://localhost:3000/demo.html"
                     className="inline-flex items-center px-8 py-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
                   >
                     Ver demostración
-                  </Link>
+                  </a>
                 </motion.div>
               </div>
             )}

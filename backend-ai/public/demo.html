@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickMail AI Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chat-bubble { max-width: 85%; border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; position: relative; }
+        .user-bubble { background-color: #2563eb; color: white; align-self: flex-end; border-bottom-right-radius: 0; margin-left: auto; }
+        .ai-bubble { background-color: #f3f4f6; color: #1f2937; align-self: flex-start; border-bottom-left-radius: 0; border: 1px solid #e5e7eb; }
+        .typing-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background-color: #6b7280; margin: 0 2px; animation: bounce 1.4s infinite ease-in-out both; }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        /* Markdown styles inside AI bubbles */
+        .ai-bubble p { margin-bottom: 0.5rem; }
+        .ai-bubble p:last-child { margin-bottom: 0; }
+        .ai-bubble ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.5rem; }
+        .ai-bubble strong { font-weight: 600; }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between shadow-sm sticky top-0 z-10">
+        <div class="flex items-center gap-3">
+            <button onclick="window.location.href='http://localhost:5173'" class="p-2 rounded-full hover:bg-gray-100 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+            </button>
+            <div>
+                <h1 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    ClickMail AI
+                    <span class="px-2 py-0.5 bg-orange-100 text-orange-800 text-xs rounded-full">Groq</span>
+                </h1>
+                <div class="flex items-center gap-1.5">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                    </span>
+                    <span class="text-xs font-medium text-gray-500">Profesor de Marketing Activo</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Chat Area -->
+    <main id="chat-container" class="flex-1 overflow-y-auto p-4 flex flex-col space-y-4">
+        <!-- Welcome Message -->
+        <div class="chat-bubble ai-bubble shadow-sm">
+            <p>¡Hola! Soy tu <strong>Profesor de Marketing con IA</strong> (Powered by Groq 🚀).</p>
+            <p>No solo crearé tus campañas, sino que te explicaré <em>por qué</em> funcionan.</p>
+            <p>Pídeme algo como:</p>
+            <ul class="text-sm text-gray-600 mt-2 bg-white/50 p-2 rounded border border-gray-200">
+                <li>"Crea un email para recuperar carritos abandonados"</li>
+                <li>"Necesito una campaña para el Black Friday de mi tienda de ropa"</li>
+                <li>"Escribe un correo de bienvenida para nuevos suscriptores"</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- Input Area -->
+    <footer class="bg-white border-t border-gray-200 p-4">
+        <form id="chat-form" class="flex gap-2 max-w-4xl mx-auto">
+            <input 
+                type="text" 
+                id="user-input" 
+                class="flex-1 border border-gray-300 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50"
+                placeholder="Describe tu campaña aquí..."
+                autocomplete="off"
+            >
+            <button 
+                type="submit" 
+                id="send-btn"
+                class="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+            </button>
+        </form>
+    </footer>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function addMessage(content, isUser, htmlPreview = null) {
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${isUser ? 'user-bubble' : 'ai-bubble'} shadow-sm`;
+            
+            if (isUser) {
+                bubble.textContent = content;
+            } else {
+                // Parse markdown for AI responses
+                bubble.innerHTML = marked.parse(content);
+                
+                if (htmlPreview) {
+                    const previewContainer = document.createElement('div');
+                    previewContainer.className = "mt-4 rounded-lg overflow-hidden border border-gray-300 bg-white";
+                    
+                    // Header
+                    previewContainer.innerHTML = `
+                        <div class="bg-gray-100 px-3 py-2 border-b border-gray-200 flex justify-between items-center">
+                            <span class="text-xs font-bold text-gray-500 uppercase">Vista Previa Email</span>
+                            <span class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full">HTML Generado</span>
+                        </div>
+                        <div class="relative bg-white" style="height: 400px;">
+                            <iframe class="w-full h-full border-0" srcdoc='${htmlPreview.replace(/'/g, "&apos;")}' sandbox="allow-same-origin"></iframe>
+                        </div>
+                        <div class="p-3 bg-gray-50 border-t border-gray-200 flex gap-2">
+                            <button onclick="navigator.clipboard.writeText(decodeURIComponent('${encodeURIComponent(htmlPreview)}')); alert('¡HTML Copiado!');" class="flex-1 bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 rounded transition">
+                                Copiar Código
+                            </button>
+                            <button onclick="window.location.href='http://localhost:5173/campaign/create'" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 rounded transition">
+                                Usar en mi campaña
+                            </button>
+                        </div>
+                    `;
+                    bubble.appendChild(previewContainer);
+                }
+            }
+            
+            chatContainer.appendChild(bubble);
+            scrollToBottom();
+        }
+
+        function showTyping() {
+            const loader = document.createElement('div');
+            loader.id = 'typing-indicator';
+            loader.className = 'chat-bubble ai-bubble';
+            loader.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+            chatContainer.appendChild(loader);
+            scrollToBottom();
+        }
+
+        function removeTyping() {
+            const loader = document.getElementById('typing-indicator');
+            if (loader) loader.remove();
+        }
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // UI Updates
+            addMessage(message, true);
+            userInput.value = '';
+            userInput.disabled = true;
+            sendBtn.disabled = true;
+            showTyping();
+
+            try {
+                const response = await fetch('/api/chat/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+
+                const data = await response.json();
+                removeTyping();
+
+                if (data.response) {
+                    addMessage(data.response, false, data.email);
+                } else {
+                    addMessage("Lo siento, hubo un error conectando con el profesor.", false);
+                }
+
+            } catch (error) {
+                console.error(error);
+                removeTyping();
+                addMessage("Error de conexión. Asegúrate de que el servidor está corriendo.", false);
+            } finally {
+                userInput.disabled = false;
+                sendBtn.disabled = false;
+                userInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import Step1Describe from '../components/campaign/Step1Describe';
 import Step2Audience from '../components/campaign/Step2Audience';
 import Step3Preview from '../components/campaign/Step3Preview';
@@ -8,6 +9,7 @@ import { useToast } from '../context/ToastContext';
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { showToast } = useToast();
   const [step, setStep] = useState(1);
   const [error, setError] = useState(false);
@@ -101,20 +103,21 @@ const CreateCampaign = () => {
       // Esto evita el problema de obtener el ID
       setStep(3);
       
-      // Texto temporal como contenido del email
-      setCampaign(prev => ({
-        ...prev,
-        emailContent: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; line-height: 1.6;">
-          <h2 style="color:#3b82f6;margin-bottom:16px;">Tu email de marketing</h2>
-          <p>Haz clic en el botón "Generar Email (Método Directo)" arriba para generar contenido con IA.</p>
-          <p>Los datos de tu campaña:</p>
-          <ul>
-            <li><strong>Nombre:</strong> ${campaign.name}</li>
-            <li><strong>Descripción:</strong> ${campaign.description}</li>
-            <li><strong>Audiencia:</strong> ${campaign.targetAudience}</li>
-          </ul>
-        </div>`
-      }));
+      // Si no hay contenido generado aún, ponemos un placeholder o intentamos generarlo
+      if (!campaign.emailContent) {
+        setCampaign(prev => ({
+          ...prev,
+          emailContent: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; line-height: 1.6;">
+            <h2 style="color:#3b82f6;margin-bottom:16px;">Tu email de marketing</h2>
+            <p>Haz clic en el botón "Generar Email con IA" para crear tu contenido personalizado.</p>
+            <div style="background:#f0f9ff; padding:15px; border-radius:8px; margin:20px 0;">
+              <strong>Datos de la campaña:</strong><br/>
+              • Nombre: ${campaign.name}<br/>
+              • Audiencia: ${campaign.targetAudience}
+            </div>
+          </div>`
+        }));
+      }
     } catch (error) {
       console.error('Error avanzando al paso 3:', error);
       let errorMessage = 'Error desconocido';
@@ -134,17 +137,30 @@ const CreateCampaign = () => {
       // Mostrar toast de información en lugar de alerta
       showToast('Por favor espera mientras generamos tu email personalizado.', 'info', 'Generando email con IA...');
       
-      // Usar la nueva función de prueba que no requiere ID de campaña ni autenticación
-      const result = await generateTestEmail();
+      // Crear params con los datos reales
+      const params = new URLSearchParams({
+        name: campaign.name || 'Campaña',
+        description: campaign.description || '',
+        targetAudience: campaign.targetAudience || 'General',
+        tone: campaign.tone || 'Profesional'
+      });
+
+      // Llamada directa a la API (funciona para invitados también)
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/campaigns/generate-test-email?${params.toString()}`);
+      const result = await res.json();
       
-      // Mostrar toast de éxito en lugar de alerta
-      showToast('Se ha actualizado la vista previa con tu nuevo contenido.', 'success', '¡Email generado exitosamente!');
-      
-      // Actualizar el contenido del email
-      setCampaign(prev => ({
-        ...prev,
-        emailContent: result.email || 'No se pudo obtener el contenido del email'
-      }));
+      if (result.success && result.email) {
+        // Mostrar toast de éxito en lugar de alerta
+        showToast('Se ha actualizado la vista previa con tu nuevo contenido.', 'success', '¡Email generado exitosamente!');
+        
+        // Actualizar el contenido del email
+        setCampaign(prev => ({
+          ...prev,
+          emailContent: result.email
+        }));
+      } else {
+        throw new Error(result.message || 'Error al generar email');
+      }
     } catch (error) {
       let errorMessage = 'Error desconocido';
       if (error instanceof Error) {
@@ -166,6 +182,14 @@ const CreateCampaign = () => {
       if (!campaign.emailContent) {
         showToast('Primero necesitas generar el contenido del email.', 'warning', 'Contenido requerido');
         setLoading(false);
+        return;
+      }
+
+      // Si es un usuario invitado (no logueado), redirigir al registro
+      if (!user) {
+        showToast('Debes registrarte para guardar tu campaña.', 'info', 'Guardar campaña');
+        // Pasamos los datos de la campaña al estado de navegación para recuperarlos después del registro
+        navigate('/register', { state: { pendingCampaign: campaign } });
         return;
       }
 
