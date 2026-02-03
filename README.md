@@ -53,6 +53,30 @@ graph TD
 
 ---
 
+## 🔮 Roadmap: Visión de Arquitectura Híbrida & Escalabilidad
+
+Este MVP está diseñado para evolucionar hacia un ecosistema empresarial robusto, permitiendo la integración con stacks tradicionales y tecnologías emergentes.
+
+### 1. Integración con Ecosistemas PHP / Laravel
+Para empresas con infraestructura existente en PHP (e.g. Plataformas EdTech, CRMs):
+*   **Estrategia "Bridge":** Mantener el núcleo de negocio (Usuarios, Pagos, Lógica Legacy) en **Laravel/PHP** por su robustez.
+*   **Microservicio de IA:** Utilizar **Node.js** exclusivamente como un microservicio satélite para la orquestación de IA, aprovechando su manejo nativo de streaming y JSON.
+*   **Comunicación:** Interconexión mediante API REST interna o colas de mensajes (Redis), modernizando la plataforma sin reescribir el monolito.
+
+### 2. Capa de Datos Persistente
+Evolución del almacenamiento "In-Memory" actual hacia bases de datos de producción:
+*   **Relacional (MySQL/PostgreSQL):** Ideal para integrarse con Eloquent ORM de Laravel para datos transaccionales.
+*   **NoSQL (MongoDB):** Para almacenar el historial conversacional y contextos de IA no estructurados.
+*   **Vectorial (Pinecone):** Implementación de RAG (Retrieval-Augmented Generation) para que el "Tutor" tenga memoria a largo plazo de los documentos de la empresa.
+
+### 3. Agentes Autónomos (LangChain.js)
+Para reducir alucinaciones y mejorar la precisión en tareas complejas (como educación o finanzas):
+*   **Sistema Multi-Agente:** Implementación de flujos de trabajo con **LangChain.js**.
+*   **Lógica de Validación:** Un agente "Generador" crea la respuesta y un agente "Supervisor" la valida contra reglas estrictas antes de enviarla al usuario.
+*   **Automatización:** Similar a flujos visuales en n8n, pero ejecutados programáticamente dentro de la infraestructura segura de la empresa.
+
+---
+
 ## ✨ Lo que hace a este proyecto especial
 
 *   **⚡ Velocidad Absurda:** Gracias a Groq, las respuestas de la IA son instantáneas.
