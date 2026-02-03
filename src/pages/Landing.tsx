@@ -37,6 +37,10 @@ const Landing = () => {
   const [formData, setFormData] = useState({ name: '', company: '', position: '', avatarUrl: '', message: '' });
   const [formStatus, setFormStatus] = useState('');
   
+  // URL limpia y centralizada para evitar errores
+  const DEMO_URL = "https://refactorclickmail.onrender.com";
+  console.log("Demo URL target:", DEMO_URL); // Debug en producción
+
   useEffect(() => {
     setIsLoaded(true);
     fetch('/api/testimonials')
@@ -141,7 +145,7 @@ const Landing = () => {
                   
                   {/* Botón de Demostración - SIEMPRE VISIBLE */}
                   <a
-                    href="https://refactorclickmail.onrender.com/"
+                    href={DEMO_URL}
                     target="_blank"
                     rel="noopener noreferrer" 
                     className="inline-flex items-center px-8 py-3.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
@@ -439,7 +443,7 @@ const Landing = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <a
-                    href="https://refactorclickmail.onrender.com/"
+                    href={DEMO_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center px-8 py-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
