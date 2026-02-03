@@ -18,12 +18,31 @@ app.use(express.static('public')); // Servir archivos estáticos
 
 // --- Redirecciones para facilitar acceso a la demo ---
 app.get('/', (req, res) => {
-  res.redirect('/demo.html');
+  res.redirect('/demo');
 });
 
+// Servir demo.html con inyección de variables
 app.get('/demo', (req, res) => {
-  res.redirect('/demo.html');
+  const fs = require('fs');
+  const path = require('path');
+  const demoPath = path.join(__dirname, 'public', 'demo.html');
+  
+  fs.readFile(demoPath, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Error loading demo');
+    }
+    
+    // Inyectar URL del frontend (o usar localhost por defecto)
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const result = data.replace(/{{FRONTEND_URL}}/g, frontendUrl);
+    
+    res.send(result);
+  });
 });
+
+// Servir otros estáticos
+app.use(express.static('public'));
 
 // --- Base de Datos en Memoria ---
 const db = {

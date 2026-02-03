@@ -26,9 +26,9 @@
     <!-- Header -->
     <header class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between shadow-sm sticky top-0 z-10">
         <div class="flex items-center gap-3">
-            <button onclick="window.location.href='http://localhost:5173'" class="p-2 rounded-full hover:bg-gray-100 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            <button onclick="window.location.href='{{FRONTEND_URL}}'" class="p-2 rounded-full hover:bg-gray-100 transition group" title="Volver al Inicio">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 group-hover:text-blue-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
             </button>
             <div>
@@ -45,6 +45,13 @@
                 </div>
             </div>
         </div>
+        <!-- Botón de retorno rápido -->
+        <button onclick="window.location.href='{{FRONTEND_URL}}'" class="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+            </svg>
+            Volver a la App
+        </button>
     </header>
 
     <!-- Chat Area -->
@@ -121,7 +128,7 @@
                             <button onclick="navigator.clipboard.writeText(decodeURIComponent('${encodeURIComponent(htmlPreview)}')); alert('¡HTML Copiado!');" class="flex-1 bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 rounded transition">
                                 Copiar Código
                             </button>
-                            <button onclick="window.location.href='http://localhost:5173/campaign/create'" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 rounded transition">
+                            <button onclick="window.location.href='{{FRONTEND_URL}}/campaign/create'" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 rounded transition">
                                 Usar en mi campaña
                             </button>
                         </div>
