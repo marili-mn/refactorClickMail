@@ -1,183 +1,114 @@
 <div align="center">
-  <img src="./public/logo1.svg" alt="ClickMail Logo" width="200" />
-  
-  # ClickMail 📧
-  
-  ### *El Futuro del Email Marketing con Inteligencia Artificial*
 
-  [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-  [![Node.js](https://img.shields.io/badge/Node.js-18-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-  [![Groq AI](https://img.shields.io/badge/Powered_by-Groq_AI-f55036?style=for-the-badge&logo=openai&logoColor=white)](https://groq.com/)
-  [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-  [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-  [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+# 📧 ClickMail AI: The Marketing Tutor
+### *Crafting high-converting emails, powered by Intelligence*
 
-  [🚀 **Demo Interactiva**](http://localhost:3000/demo) • [📖 **Documentación**](#-tabla-de-contenidos) • [🐛 **Reportar Bug**](https://github.com/joseorteha/ClickMail/issues)
+<p align="center">
+  <img src="./public/logo1.svg" alt="ClickMail Logo" width="180" />
+</p>
 
-  ---
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Groq](https://img.shields.io/badge/AI-Groq_(Llama_3)-f55036?style=for-the-badge&logo=openai&logoColor=white)](https://groq.com/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-  **ClickMail** es una plataforma SaaS híbrida que democratiza el email marketing profesional. Gracias a su potente integración con **Groq AI (Llama 3)**, permite generar campañas persuasivas, segmentar audiencias y optimizar el copy en segundos.
+[**🌐 Live Platform**](https://tutormarketing.vercel.app/) • [**🤖 Interactive AI Demo**](https://refactorclickmail.onrender.com/demo)
 
-  *Diseñado para desarrolladores, marketers y emprendedores que buscan velocidad y calidad.*
+---
+
+### 🚀 ¿Qué es ClickMail AI?
+**ClickMail** no es solo una herramienta de email marketing; es un **Mentor de Negocios**. 
+Utilizamos IA de vanguardia para que dejes de "adivinar" y empieces a "vender". 
+
+*Describe tu producto → Recibe estrategia + Código HTML listo para usar.*
 
 </div>
 
-## 📑 Tabla de Contenidos
+---
 
-- [✨ Características Principales](#-características-principales)
-- [🏗️ Arquitectura Híbrida](#️-arquitectura-híbrida)
-- [🚀 Inicio Rápido (Local)](#-inicio-rápido-local)
-- [🔧 Configuración de Entorno](#-configuración-de-entorno)
-- [🌐 Guía de Despliegue](#-guía-de-despliegue)
-- [🛠️ Stack Tecnológico](#️-stack-tecnológico)
-- [🤝 Contribuir](#-contribuir)
-- [📄 Licencia](#-licencia)
+## 🧠 El Concepto "Profesor Mode"
+A diferencia de otros generadores, nuestra IA funciona en **Modo Tutor**. 
+Cuando le pides una campaña, el sistema:
+1.  **Analiza** tu solicitud.
+2.  **Explica** la psicología de marketing detrás de la propuesta.
+3.  **Genera** el código HTML optimizado para dispositivos móviles.
 
-## ✨ Características Principales
+---
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="33%">
-        <h3>🤖 IA Ultra-Rápida</h3>
-        <p>Integración con <strong>Groq Cloud</strong> para generación de contenido en tiempo real (Llama 3.3). Sin esperas.</p>
-      </td>
-      <td align="center" width="33%">
-        <h3>⚡ Arquitectura Moderna</h3>
-        <p>Frontend SPA en React desacoplado del Backend API en Node.js para máxima escalabilidad.</p>
-      </td>
-      <td align="center" width="33%">
-        <h3>🎨 UX Profesional</h3>
-        <p>Interfaz limpia con Tailwind CSS, modo oscuro y diseño responsivo "Mobile First".</p>
-      </td>
-    </tr>
-  </table>
-</div>
+## 🏗️ Arquitectura de Producción
+Diseñado con una arquitectura de **microservicios desacoplados** para garantizar velocidad y seguridad total.
 
-### 🎯 Funcionalidades Clave
-
-- **Generador de Campañas IA**: Describe tu producto y recibe un email HTML listo para enviar.
-- **Asistente Virtual ("Profesor")**: Chat interactivo que te enseña estrategias de marketing mientras trabaja.
-- **Editor Visual**: Personaliza las plantillas generadas al instante.
-- **Gestión de Audiencias**: Segmentación inteligente sugerida por IA.
-- **Seguridad**: Manejo de credenciales mediante variables de entorno (API Keys protegidas).
-
-## 🏗️ Arquitectura Híbrida
-
-ClickMail utiliza un enfoque desacoplado para garantizar rendimiento y mantenibilidad:
-
-1.  **Frontend (Puerto 5173):** Aplicación React + Vite + TypeScript. Maneja la UI, el estado del usuario y la navegación.
-2.  **Backend AI (Puerto 3000):** Servidor Node.js + Express. Actúa como orquestador seguro entre el cliente y la API de Groq, protegiendo las credenciales y procesando la lógica de negocio.
+*   **Frontend (Vercel):** Una experiencia SPA ultra-fluida construida con **React 18** y **TypeScript**.
+*   **Backend (Render):** El "cerebro" en **Node.js** que protege las API Keys y orquesta las llamadas a Groq Cloud.
+*   **IA Engine:** Integración con **Groq (Llama 3.3)** con latencia casi nula.
 
 ```mermaid
-graph LR
-A[Cliente React] -- HTTP/JSON --> B[Node.js Backend]
-B -- Secure API Call --> C[Groq Cloud (Llama 3)]
-C -- Generated Content --> B
-B -- JSON Response --> A
+graph TD
+    A[User Interface] -->|Requests| B[React SPA]
+    B -->|API Calls| C[Express Backend]
+    C -->|Secure Prompting| D[Groq Llama 3.3]
+    D -->|AI Response| C
+    C -->|Structured Data| B
 ```
 
-## 🚀 Inicio Rápido (Local)
+---
 
-Hemos simplificado el arranque con un solo comando.
+## ✨ Lo que hace a este proyecto especial
 
-### Prerrequisitos
-- **Node.js** >= 18.0.0
-- **npm** o **yarn**
-- Una **API Key de Groq** (Gratuita en [console.groq.com](https://console.groq.com))
+*   **⚡ Velocidad Absurda:** Gracias a Groq, las respuestas de la IA son instantáneas.
+*   **🛡️ Seguridad Senior:** API Keys manejadas en el lado del servidor mediante variables de entorno. Nunca se exponen al cliente.
+*   **📱 Agente Mobile-First:** Una demo interactiva optimizada para ser probada desde cualquier lugar.
+*   **🎨 Diseño Moderno:** Interfaz pulida con **Tailwind CSS** y animaciones suaves con **Framer Motion**.
 
-### Pasos
-
-1.  **Clona el repositorio**
-    ```bash
-    git clone https://github.com/joseorteha/ClickMail.git
-    cd ClickMail/refactorClickMail
-    ```
-
-2.  **Instala las dependencias**
-    ```bash
-    npm install
-    # Asegura también las del backend
-    cd backend-ai && npm install && cd ..
-    ```
-
-3.  **Configura tus variables**
-    Crea un archivo `.env` en `backend-ai/` basado en el ejemplo:
-    ```bash
-    cp backend-ai/.env.example backend-ai/.env
-    ```
-    *Edita `backend-ai/.env` y pega tu `OPENAI_API_KEY` de Groq.*
-
-4.  **¡Arranca la orquesta!** 🎻
-    ```bash
-    npm run start-all
-    ```
-    Esto iniciará tanto el Frontend como el Backend en paralelo.
-    - Frontend: `http://localhost:5173`
-    - Backend/Demo: `http://localhost:3000`
-
-## 🔧 Configuración de Entorno
-
-### Backend (`backend-ai/.env`)
-
-| Variable | Descripción | Valor Recomendado |
-|----------|-------------|-------------------|
-| `PORT` | Puerto del servidor | `3000` |
-| `OPENAI_API_KEY` | Tu clave de Groq | `gsk_...` |
-| `OPENAI_BASE_URL` | Endpoint de Groq | `https://api.groq.com/openai/v1` |
-| `AI_MODEL` | Modelo de IA | `llama-3.3-70b-versatile` |
-
-### Frontend (`.env`)
-
-| Variable | Descripción | Valor |
-|----------|-------------|-------|
-| `VITE_API_URL` | URL del Backend | `http://localhost:3000` (Local) o URL de Render (Prod) |
-
-## 🌐 Guía de Despliegue
-
-Para un entorno de producción profesional ("The Senior Way"), recomendamos:
-
-1.  **Frontend en Vercel/Netlify:**
-    - Conecta tu repositorio.
-    - Configura el `Root Directory` en `refactorClickMail`.
-    - Variable de entorno: `VITE_API_URL` -> URL de tu backend.
-
-2.  **Backend en Render/Railway:**
-    - Crea un Web Service.
-    - `Root Directory`: `refactorClickMail/backend-ai`.
-    - Comando Build: `npm install`.
-    - Comando Start: `node server.js`.
-    - **Variables de Entorno:** Aquí es donde pegas tu `OPENAI_API_KEY` de forma segura.
+---
 
 ## 🛠️ Stack Tecnológico
 
-- **Core:** React 18, TypeScript, Node.js
-- **Estilos:** Tailwind CSS
-- **Build:** Vite
-- **IA:** Groq SDK (Compatible con OpenAI)
-- **Seguridad:** JWT, Helmet, CORS
+| Capa | Tecnología |
+| :--- | :--- |
+| **Frontend** | React, Vite, TypeScript |
+| **Styles** | Tailwind CSS, Lucide Icons |
+| **Backend** | Node.js, Express, JWT |
+| **Intelligence** | Groq AI, OpenAI SDK |
+| **Infrastructure** | Vercel (Front) + Render (Back) |
 
-## 🤝 Contribuir
+---
 
-¡Las contribuciones son bienvenidas! Por favor, abre un issue primero para discutir lo que te gustaría cambiar.
+## 🚀 ¡Pruébalo en tu local!
 
-1.  Fork el proyecto
-2.  Crea tu rama (`git checkout -b feature/AmazingFeature`)
-3.  Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4.  Push a la rama (`git push origin feature/AmazingFeature`)
-5.  Abre un Pull Request
+Hemos orquestado todo para que arranque con **un solo comando**.
 
-## 📄 Licencia
+### 1️⃣ Clonar y Preparar
+```bash
+git clone https://github.com/marili-mn/refactorClickMail.git
+cd refactorClickMail
+npm install
+cd backend-ai && npm install && cd ..
+```
 
-Distribuido bajo la licencia MIT. Ver `LICENSE` para más información.
+### 2️⃣ Configurar (The Secret Sauce)
+Crea un archivo `.env` dentro de la carpeta `backend-ai/`:
+```ini
+OPENAI_API_KEY=gsk_tua_api_key_aqui
+OPENAI_BASE_URL=https://api.groq.com/openai/v1
+AI_MODEL=llama-3.3-70b-versatile
+```
+
+### 3️⃣ ¡Fuego!
+```bash
+npm run start-all
+```
+*Visita: `http://localhost:5173` para el negocio o `http://localhost:3000/demo` para el tutor.*
 
 ---
 
 <div align="center">
 
-**¿Te gusta ClickMail?** ⭐ ¡Dale una estrella en GitHub!
+### 🤝 ¿Quieres hablar del proyecto?
+Este MVP fue desarrollado para demostrar la potencia de los LLMs aplicados a productos reales.
 
-*Hecho con ❤️ e IA por el equipo de ClickMail*
+**[GitHub Project](https://github.com/joseorteha/ClickMail)** • **[Issues](https://github.com/joseorteha/ClickMail/issues)**
+
+*Hecho con ❤️ por Nahuel y la IA*
 
 </div>
