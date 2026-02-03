@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = 'https://refactorclickmail.onrender.com';
 
 export const register = async (data: { name: string; email: string; password: string }) => {
   const res = await fetch(`${API_URL}/api/auth/register`, {

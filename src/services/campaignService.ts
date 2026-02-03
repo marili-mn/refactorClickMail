@@ -1,4 +1,4 @@
-const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/campaigns`;
+const API_URL = `https://refactorclickmail.onrender.com/api/campaigns`;
 
 function getToken(token?: string): string | null {
   return token || localStorage.getItem('token');
@@ -165,7 +165,7 @@ export const processContactsFile = async (fileContent: string, token?: string) =
 export const generateTestEmail = async () => {
   console.log('Llamando a la ruta de prueba para generar email...');
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/campaigns/generate-test-email`);
+    const res = await fetch(`https://refactorclickmail.onrender.com/api/campaigns/generate-test-email`);
     console.log('Respuesta recibida con status:', res.status);
     
     if (!res.ok) {

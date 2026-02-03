@@ -146,7 +146,7 @@ const CreateCampaign = () => {
       });
 
       // Llamada directa a la API (funciona para invitados también)
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/campaigns/generate-test-email?${params.toString()}`);
+      const res = await fetch(`https://refactorclickmail.onrender.com/api/campaigns/generate-test-email?${params.toString()}`);
       const result = await res.json();
       
       if (result.success && result.email) {

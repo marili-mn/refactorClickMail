@@ -55,7 +55,7 @@ const EmailSettings: React.FC = () => {
         }
         
         const response = await axios.get<ApiResponse<EmailConfig>>(
-          `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/email-provider`,
+          `https://refactorclickmail.onrender.com/api/email-provider`,
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -102,7 +102,7 @@ const EmailSettings: React.FC = () => {
       }
       
       const response = await axios.post<ApiResponse<{ testAccount?: TestAccount }>>(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/verify-email`, 
+        `https://refactorclickmail.onrender.com/api/verify-email`, 
         {
           apiKey: formData.apiKey || 'test-password',
           domain: formData.domain,
@@ -151,7 +151,7 @@ const EmailSettings: React.FC = () => {
       }
       
       const response = await axios.post<ApiResponse<EmailConfig>>(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/email-provider`, 
+        `https://refactorclickmail.onrender.com/api/email-provider`, 
         formData,
         {
           headers: {
@@ -189,7 +189,7 @@ const EmailSettings: React.FC = () => {
       }
       
       const response = await axios.delete<ApiResponse<void>>(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/email-provider`,
+        `https://refactorclickmail.onrender.com/api/email-provider`,
         {
           headers: {
             Authorization: `Bearer ${token}`
